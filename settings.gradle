@@ -1,0 +1,2 @@
+rootProject.name = "RecyclerviewusingLinearLayoutManager Horizontal"
+include ':app'
