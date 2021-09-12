@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.recyclerviewusinglinearlayoutmanagerhorizontal.adapter.Iclick;
 import com.example.recyclerviewusinglinearlayoutmanagerhorizontal.adapter.UserAdapter;
 import com.example.recyclerviewusinglinearlayoutmanagerhorizontal.model.User;
 
@@ -24,7 +26,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.rcv_user);
-        userAdapter = new UserAdapter(this);
+        userAdapter = new UserAdapter(getListUser(), new Iclick() {
+
+            @Override
+            public void ItemClickUser(User user) {
+                OnClickToDetail(user);
+            }
+        });
 
         //set giao dien
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
@@ -96,4 +104,13 @@ public class MainActivity extends AppCompatActivity {
 
         return list;
     }
+    private void OnClickToDetail(User user)
+    {
+        Intent intent=new Intent(this, DetailActivity.class);
+        Bundle bundle =new Bundle();
+        bundle.putSerializable("objectUser",user);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 }
